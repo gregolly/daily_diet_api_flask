@@ -40,6 +40,58 @@ def logout():
     logout_user()
     return jsonify({"message": "You have been logged out"})
 
+@app.route("/user", methods=['POST'])
+# @login_required
+def create_user():
+    data = request.json
+    username = data.get("username")
+    password = data.get("password")
+
+    if username and password:
+        user = User(username=username, password=password)
+        db.session.add(user)
+        db.session.commit()
+        return jsonify({"message": "User registered with successful"})
+
+    return jsonify({"message": "Invalid data"}), 400
+
+@app.route("/user/<int:id>", methods=['GET'])
+@login_required
+def get_user(id):
+    user = User.query.get(id)
+
+    if user:
+        return {"username": user.username}
+    
+    return jsonify({"message": "User not found"}), 404
+
+@app.route("/user/<int:id>", methods=['PUT'])
+@login_required
+def update_user(id):
+    data = request.json
+    user = User.query.get(id)
+
+    if user and data.get("password"):
+        user.password = data.get("password")
+        db.session.commit()
+        return jsonify({"message": f"User {id} has been updated successful"})
+    
+    return jsonify({"message": "User not found"}), 404 
+
+@app.route("/user/<int:id>", methods=['DELETE'])
+@login_required
+def delete_user(id):
+    user = User.query.get(id)
+
+    if id == current_user.id:
+        return jsonify({"message": "You cannot delete user logged in"})
+    
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({"message": f"User {id} has been deleted successful"})
+    
+    return jsonify({"message": "User not found"}), 404 
 
 if __name__ == '__main__':
     app.run(debug=True)
