@@ -9,5 +9,5 @@ class Meal(db.Model):
     onDiet = db.Column(db.Boolean, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship("User", back_populates="meals")
-    created_at = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, nullable=False) 
-    updated_at = db.Column(db.DateTime(timezone=True), default=db.func.utcnow, onupdate=db.func.utcnow(), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False) 
+    updated_at = db.Column(db.DateTime, default=db.func.utcnow, onupdate=db.func.utcnow, nullable=False)
