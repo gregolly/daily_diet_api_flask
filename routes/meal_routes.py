@@ -26,10 +26,6 @@ def create_meal():
         
         if current_user.is_authenticated:
             user_id = current_user.id
-            current_time = datetime.utcnow()
-
-            created_at_datetime = datetime.strptime(current_time.replace(microsecond=0).isoformat(), "%Y-%m-%dT%H:%M:%S")
-            updated_at_datetime = created_at_datetime  # You can update this value as needed
 
             meal = Meal(
                 title=title, 
@@ -38,8 +34,6 @@ def create_meal():
                 hour=hour, 
                 onDiet=onDiet, 
                 user_id=user_id,
-                created_at=created_at_datetime,
-                updated_at=updated_at_datetime
             )
 
             db.session.add(meal)
