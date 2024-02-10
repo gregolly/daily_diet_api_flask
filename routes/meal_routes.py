@@ -19,7 +19,7 @@ def create_meal():
     if title and date and hour:
         try:
             date = datetime.strptime(date, "%d/%m/%Y")
-            hour = datetime.strptime(hour, "%H:%M").time()
+            hour = datetime.strptime(hour, "%H:%M").strftime("%H:%M")
         except ValueError as e:
             print(f"Error parsing date or hour: {e}")
             return jsonify({"message": "Invalid date or hour format"}), 400
