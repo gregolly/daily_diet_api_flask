@@ -56,5 +56,5 @@ def get_meal(id):
             "onDiet": meal.onDiet
         }
     
-    return jsonify({"message": "User not found"}), 404
+    return jsonify({"message": "Meal not found"}), 404
 
