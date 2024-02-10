@@ -1,13 +1,11 @@
 from flask import request, jsonify
 from database import db
 from models.user import User
-from models.meal import Meal
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from bcrypt import hashpw, gensalt, checkpw
 from app import app
 
 login_manager = LoginManager()
-db.init_app(app)
 
 login_manager.init_app(app)
 
