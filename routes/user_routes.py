@@ -28,7 +28,7 @@ def logout():
     logout_user()
     return jsonify({"message": "You have been logged out"})
 
-@user_bp.route("/user", methods=['POST'])
+@user_bp.route("/", methods=['POST'])
 # @login_required
 def create_user():
     data = request.json
@@ -44,7 +44,7 @@ def create_user():
 
     return jsonify({"message": "Invalid data"}), 400
 
-@user_bp.route("/user/<int:id>", methods=['GET'])
+@user_bp.route("/<int:id>", methods=['GET'])
 @login_required
 def get_user(id):
     user = User.query.get(id)
@@ -54,7 +54,7 @@ def get_user(id):
     
     return jsonify({"message": "User not found"}), 404
 
-@user_bp.route("/user/<int:id>", methods=['PUT'])
+@user_bp.route("/<int:id>", methods=['PUT'])
 @login_required
 def update_user(id):
     data = request.json
@@ -71,7 +71,7 @@ def update_user(id):
     
     return jsonify({"message": "User not found"}), 404 
 
-@user_bp.route("/user/<int:id>", methods=['DELETE'])
+@user_bp.route("/<int:id>", methods=['DELETE'])
 @login_required
 def delete_user(id):
     user = User.query.get(id)
