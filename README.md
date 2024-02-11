@@ -22,6 +22,6 @@ List the key features of your project.
 Provide instructions on how to set up and run your project.
 
 # Example installation steps
-`git clone https://github.com/your-username/your-project.git`
-`cd your-project`
-`pip install -r requirements.txt`
+- `git clone https://github.com/your-username/your-project.git`
+- `cd your-project`
+- `pip install -r requirements.txt`
