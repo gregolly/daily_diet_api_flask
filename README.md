@@ -4,7 +4,6 @@ API daily diet, with this restfull api you can create track your daily diet, to 
 
 ## Table of Contents
 
-- [Introduction](#introduction)
 - [Features](#features)
 - [Getting Started](#getting-started)
   - [Installation](#example-installation-steps)
