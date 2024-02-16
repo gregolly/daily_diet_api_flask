@@ -50,6 +50,7 @@ def get_meal(id):
 
     if meal:
         return {
+            "id": meal.id,
             "title": meal.title,
             "description": meal.description,
             "date": meal.date,
@@ -71,6 +72,7 @@ def get_meals(id):
         meal_list = []
         for meal in meals:
             meal_data = {
+                "id": meal.id,
                 "title": meal.title,
                 "description": meal.description,
                 "date": meal.date,
