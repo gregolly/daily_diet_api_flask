@@ -15,7 +15,7 @@ def login():
     if username and password:
         user = User.query.filter_by(username=username).first()
 
-        if user and checkpw(str.encode(password), user.password):
+        if user and checkpw(str.encode(password), str.encode(user.password)):
             login_user(user)
             print(current_user.is_authenticated)
             return jsonify({"message": "You have been logged in!"})
@@ -37,7 +37,7 @@ def create_user():
 
     if username and password:
         hashed_password = hashpw(str.encode(password), gensalt())
-        user = User(username=username, password=hashed_password)
+        user = User(username=username, password=hashed_password.decode('utf-8'))
         db.session.add(user)
         db.session.commit()
         return jsonify({"message": "User registered with successful"})
@@ -64,7 +64,9 @@ def update_user(id):
         return jsonify({"message": "You cannot change password of another user"}), 403
     
     if user and data.get("password"):
-        user.password = data.get("password")
+        new_password = data.get("password")
+        hashed_password = hashpw(str.encode(new_password), gensalt())
+        user.password = hashed_password.decode('utf-8')
         # user.role = data.get("role")
         db.session.commit()
         return jsonify({"message": f"User {id} has been updated successful"})
@@ -77,7 +79,7 @@ def delete_user(id):
     user = User.query.get(id)
 
     if current_user.role != "admin":
-        return jsonify({"message": "You cannot delete another user"}), 403
+        return jsonify({"message": "You cannot delete another user, just admins might delete users"}), 403
     
     if id == current_user.id:
         return jsonify({"message": "You cannot delete a logged in user"})
